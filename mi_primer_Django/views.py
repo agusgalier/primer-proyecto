@@ -1,24 +1,50 @@
 from django.http import HttpResponse
 from datetime import datetime
-from django.template import Template, Context
+from django.template import Template, Context, loader
 
  #v1
 #def inicio(request):
 #    return HttpResponse('Hola soy la vista')
-
+#v2
+# def inicio(request):
+#     archivo=open(r'C:\Users\Agustin\Desktop\mi_primer_Django\templates\inicio.html', 'r')
+#     template=Template(archivo.read())
+#     archivo.close()
+#     segundos=datetime.now().second
+#     diccionario={
+#         'mensaje':'Este es el mensaje de inicio...',
+#         'segundos':  segundos,
+#         'segundos_par':segundos%2==0,
+#         'segundos_redondo':segundos%10==0,
+#         'listado_de_numeros':list(range(25))    
+#     }
+#     contexto=Context(diccionario)
+#     renderizar_template=template.render(contexto)
+#     return HttpResponse(renderizar_template)
+    
+#v3
 def inicio(request):
-    archivo=open(r'C:\Users\Agustin\Desktop\mi_primer_Django\templates\inicio.html', 'r')
+    #archivo=open(r'C:\Users\Agustin\Desktop\mi_primer_Django\templates\inicio.html', 'r')
+    #template=Template(archivo.read())
+    #archivo.close()
     
-    template=Template(archivo.read())
+    template=loader.get_template('inicio.html')
     
-    archivo.close()
+    segundos=datetime.now().second
+    diccionario={
+        'mensaje':'Este es el mensaje de inicio...',
+        'segundos':  segundos,
+        'segundos_par':segundos%2==0,
+        'segundos_redondo':segundos%10==0,
+        'listado_de_numeros':list(range(25))    
+    }
+    #contexto=Context(diccionario)
+    #renderizar_template=template.render(contexto)
     
-    contexto=Context()
-    
-    renderizar_template=template.render(contexto)
-    
+    renderizar_template=template.render(diccionario)
     return HttpResponse(renderizar_template)
-    
+
+
 def segunda_vista(request):
     return HttpResponse('<h1>soy la segunda vista</h1>')
 
