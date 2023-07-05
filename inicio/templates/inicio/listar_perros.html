@@ -19,7 +19,12 @@ Listados de Perros
 </form> 
 {% if perros %}
 {% for perro in perros  %}
-<li>Nombre: {{perro.nombre}} - Edad: {{perro.edad}}</li>       
+{% comment %} <li>Nombre: {{perro.nombre}} - Edad: {{perro.edad}}</li>        {% endcomment %}
+<li>
+    {{perro}}
+    <a href={%url 'inicio:eliminar_perro' perro.id%}>Eliminar</a>
+    <a href={%url 'inicio:modificar_perro' perro.id%}>Modificar</a>
+</li>
 {% endfor %}
 {% else %}
 <p>No se encontraron datos cargados.</p>
