@@ -25,7 +25,18 @@
                 <a class="navbar-brand" href={% url 'inicio:inicio' %}>Inicio</a>
                 <a class="navbar-brand" href={% url 'inicio:prueba' %}>Prueba</a>
                 <a class="navbar-brand" href={% url 'inicio:listar_perros' %}>Perros</a>
-                <a class="btn btn-primary" href="#signup">Iniciar</a>
+                {% if request.user.is_authenticated %}
+                {% if request.user.infoextra.avatar  %}
+                <img src={{request.user.infoextra.avatar.url}} alt="" height='40px'>
+                {% endif %}
+                <a class="navbar-brand" href={% url 'usuario:editar_perfil' %}>{{request.user.username}}</a>
+                <a class="btn btn-secondary" href={% url 'usuario:logout' %}>Logout</a>
+                {% else %}
+                <a class="btn btn-primary" href={% url 'usuario:login' %}>Login</a>
+                <a class="btn btn-primary" href={% url 'usuario:registrarse' %}>Registrarse</a>
+                {% endif %}
+            
+                
             </div>
         </nav>
         {% block header %}
