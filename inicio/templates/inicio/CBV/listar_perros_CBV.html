@@ -12,10 +12,10 @@ Listados de Perros
 <button>
 <a class="navbar-brand" href={% url 'inicio:crear_perro' %}>Crear perro</a>
 </button>
-{% comment %} <form action="" method="get">
+<form action="" method="get">
     {{formulario}}
 <button>Buscar</button>
-</form>  {% endcomment %}
+</form>  
 {% if perros %}
 {% for perro in perros  %}
 

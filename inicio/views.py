@@ -1,3 +1,5 @@
+from typing import Any, Dict
+from django.db.models.query import QuerySet
 from django.http import HttpResponse
 from datetime import datetime
 from django.template import Template, Context, loader
@@ -185,6 +187,21 @@ class ListarPerros(ListView):
     model=Perro
     template_name='inicio/CBV/listar_perros_CBV.html'      
     context_object_name='perros'
+    
+    def get_queryset(self):
+        listado_de_perros=[]
+        formulario = BuscarPerroFormulario(self.request.GET)
+        if formulario.is_valid():
+            nombre_a_buscar=formulario.cleaned_data['nombre']
+            listado_de_perros=Perro.objects.filter(nombre__icontains=nombre_a_buscar)
+        return listado_de_perros
+    
+    
+    def get_context_data(self, **kwargs) :
+        contexto=super().get_context_data(**kwargs)
+        contexto['formulario']=BuscarPerroFormulario()
+        return contexto
+
     
 class ModificarPerro(LoginRequiredMixin,UpdateView):
     model = Perro

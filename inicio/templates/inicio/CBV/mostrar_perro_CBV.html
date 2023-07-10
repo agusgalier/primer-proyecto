@@ -10,5 +10,5 @@
 
 {% block contenido %}
 <li>Edad:{{perro.edad}}</li>
-<li>Descripcion:{{perro.descripcion}} </li>
+<li>Descripcion:{{perro.descripcion | safe}} </li>
 {% endblock contenido  %}   
